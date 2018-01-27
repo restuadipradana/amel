@@ -34,41 +34,43 @@ void allon(){
 }
 void alloff(){
 }
+
 void setup(){
   Serial.begin(9600);
- lcd.begin(16, 2);
-
- int ledverifikasi =13;
-int ledbuka =12;
-int ledkunci=11;
-int solenoid=10;
+  lcd.begin(16, 2);
+  
+  int ledverifikasi =13;
+  int ledbuka =12;
+  int ledkunci=11;
+  int solenoid=10;
 
   pinMode(ledverifikasi, OUTPUT);
-   
   pinMode(ledbuka, OUTPUT);
   pinMode(ledkunci, OUTPUT);
   pinMode(relaysolenoid, OUTPUT);
-    pinMode(relayldr, OUTPUT);
+  pinMode(relayldr, OUTPUT);
   pinMode(relaybuzzer, OUTPUT);
   
   digitalWrite(relaysolenoid, HIGH);
- digitalWrite(relayldr, HIGH);
- digitalWrite(relaybuzzer, HIGH);
-   lcd.clear();
+  digitalWrite(relayldr, HIGH);
+  digitalWrite(relaybuzzer, HIGH);
+  
+  lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("MASUKAN PASSWORD");
   lcd.setCursor(0,1);
   lcd.print("      ANDA      ");
   delay(200); 
+  
   for (int row = 0; row < numRows; row++) {
-        pinMode(rowPins[row],INPUT);                      
-        digitalWrite(rowPins[row],HIGH);                 
-    }
-    for (int column = 0; column < numCols; column++) {
-        pinMode(colPins[column],OUTPUT);                   
-        digitalWrite(colPins[column],HIGH);               
-    }
-   }
+    pinMode(rowPins[row],INPUT);                      
+    digitalWrite(rowPins[row],HIGH);                 
+  }
+  for (int column = 0; column < numCols; column++) {
+    pinMode(colPins[column],OUTPUT);                   
+    digitalWrite(colPins[column],HIGH);               
+  }
+}
 
 void loop(){
 
@@ -98,11 +100,11 @@ void loop(){
     
     }
     ////////////////////////////////////////////////////////////////////
-   while (Serial.available()){ 
-  delay(10); 
-  char c = Serial.read(); 
-  if (c == '#') {break;} 
-  voice += c; 
+  while (Serial.available()){ 
+    delay(10); 
+    char c = Serial.read(); 
+    if (c == '#') {break;} 
+    voice += c; 
   }  
   if (voice.length() > 0) {
     Serial.println(voice); 
@@ -110,27 +112,27 @@ void loop(){
 
   //----------AKTIFKAN SISTEM KEAMANAN----------// 
   if(voice == "SISTEM ON") {digitalWrite(relayldr, LOW);digitalWrite(ledbuka, HIGH);digitalWrite(ledkunci, LOW);} 
- else if(voice == "sistem on"){digitalWrite(relayldr, LOW);digitalWrite(ledbuka, HIGH);digitalWrite(ledkunci, LOW);} 
- else if(voice == "Sistem On"){digitalWrite(relayldr, LOW);digitalWrite(ledbuka, HIGH);digitalWrite(ledkunci, LOW);} 
+  else if(voice == "sistem on"){digitalWrite(relayldr, LOW);digitalWrite(ledbuka, HIGH);digitalWrite(ledkunci, LOW);} 
+  else if(voice == "Sistem On"){digitalWrite(relayldr, LOW);digitalWrite(ledbuka, HIGH);digitalWrite(ledkunci, LOW);} 
    //----------MATIKAN SISTEM KEAMANAN----------// 
   else if(voice == "SYSTEM OF") {digitalWrite(relayldr, HIGH);digitalWrite(ledbuka, LOW);digitalWrite(ledkunci, HIGH);} 
-   else if(voice == "System Of") {digitalWrite(relayldr, HIGH);digitalWrite(ledbuka, LOW);digitalWrite(ledkunci, HIGH);} 
-    else if(voice == "system of") {digitalWrite(relayldr, HIGH);digitalWrite(ledbuka, LOW);digitalWrite(ledkunci, HIGH);} 
+  else if(voice == "System Of") {digitalWrite(relayldr, HIGH);digitalWrite(ledbuka, LOW);digitalWrite(ledkunci, HIGH);} 
+  else if(voice == "system of") {digitalWrite(relayldr, HIGH);digitalWrite(ledbuka, LOW);digitalWrite(ledkunci, HIGH);} 
 
 //-----------------------------------------------------------------------//  
-voice="";}
-    ///////////////////////////////////////////////////////////////////////
-    
-     //###################################################
- val = analogRead(ldr);
-if(val>=100){
- // Serial.println(val);
-  delay(1000);
+  voice="";}
+      ///////////////////////////////////////////////////////////////////////
+      
+       //###################################################
+  
+  val = analogRead(ldr);
+  if(val>=100){
+    // Serial.println(val);
+    delay(1000);
     digitalWrite(relaybuzzer, HIGH);
-    
-}else{
+  }else{
     digitalWrite(relaybuzzer, LOW);
-   //   Serial.println(val);
+    // Serial.println(val);
   }
   delay(1000);
 }
@@ -138,87 +140,80 @@ if(val>=100){
 
 //###############################################
 void checkPassword1(){
-if (password1.evaluate()){  
-digitalWrite(ledverifikasi, HIGH);
-       lcd.clear();
-  lcd.setCursor(0,0);
-  lcd.print("  AKSES SUKSES  ");
-  lcd.setCursor(0,1);
-  lcd.print("  TERIMA KASIH  ");
- delay(2000); 
-      digitalWrite(ledverifikasi, LOW);
-  lcd.setCursor(0,0);
-  lcd.print("MASUKAN PASSWORD");
-  lcd.setCursor(0,1);
-  lcd.print("      ANDA      ");
-  delay(200); 
-        digitalWrite(ledbuka, HIGH);
+  if (password1.evaluate()){  
+    digitalWrite(ledverifikasi, HIGH);
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("  AKSES SUKSES  ");
+    lcd.setCursor(0,1);
+    lcd.print("  TERIMA KASIH  ");
+    delay(2000); 
+    digitalWrite(ledverifikasi, LOW);
+    lcd.setCursor(0,0);
+    lcd.print("MASUKAN PASSWORD");
+    lcd.setCursor(0,1);
+    lcd.print("      ANDA      ");
+    delay(200); 
+    digitalWrite(ledbuka, HIGH);
     digitalWrite(relaysolenoid, LOW);
     digitalWrite(ledkunci, LOW);
   }
-
 }
+
 void checkPassword2(){   
-                     
-    if (password2.evaluate()){
-      digitalWrite(ledverifikasi, HIGH);
-       lcd.clear();
-  lcd.setCursor(0,0);
-  lcd.print("  AKSES SUKSES  ");
-  lcd.setCursor(0,1);
-  lcd.print("  TERIMA KASIH  ");
-  delay(2000); 
- digitalWrite(ledverifikasi, LOW);
-  lcd.setCursor(0,0);
-  lcd.print("MASUKAN PASSWORD");
-  lcd.setCursor(0,1);
-  lcd.print("      ANDA      ");
-  delay(200);
-         digitalWrite(ledbuka, HIGH);
+  if (password2.evaluate()){
+    digitalWrite(ledverifikasi, HIGH);
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("  AKSES SUKSES  ");
+    lcd.setCursor(0,1);
+    lcd.print("  TERIMA KASIH  ");
+    delay(2000); 
+    digitalWrite(ledverifikasi, LOW);
+    lcd.setCursor(0,0);
+    lcd.print("MASUKAN PASSWORD");
+    lcd.setCursor(0,1);
+    lcd.print("      ANDA      ");
+    delay(200);
+    digitalWrite(ledbuka, HIGH);
     digitalWrite(relaysolenoid, LOW);
     digitalWrite(ledkunci, LOW);
-   } 
-    
-  }
-  void checkPassword3(){                   
-    if (password3.evaluate()){
-      digitalWrite(ledverifikasi, HIGH);
-   lcd.clear();
-  lcd.setCursor(0,0);
-  lcd.print("  AKSES SUKSES  ");
-  lcd.setCursor(0,1);
-  lcd.print("  TERIMA KASIH  ");
-  delay(2000); 
- digitalWrite(ledverifikasi, LOW);
-  lcd.setCursor(0,0);
-  lcd.print("MASUKAN PASSWORD");
-  lcd.setCursor(0,1);
-  lcd.print("      ANDA      ");
-  delay(200);
-          digitalWrite(ledbuka, LOW);
+  } 
+}
+
+void checkPassword3(){                   
+  if (password3.evaluate()){
+    digitalWrite(ledverifikasi, HIGH);
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("  AKSES SUKSES  ");
+    lcd.setCursor(0,1);
+    lcd.print("  TERIMA KASIH  ");
+    delay(2000); 
+    digitalWrite(ledverifikasi, LOW);
+    lcd.setCursor(0,0);
+    lcd.print("MASUKAN PASSWORD");
+    lcd.setCursor(0,1);
+    lcd.print("      ANDA      ");
+    delay(200);
+    digitalWrite(ledbuka, LOW);
     digitalWrite(relaysolenoid, HIGH);
     digitalWrite(ledkunci, HIGH);
-      }
-      
-
-   }
-char getKey() {
-    char key = 0;                                          
-    for(int column = 0; column < numCols; column++) {
-        digitalWrite(colPins[column],LOW);                 
-        for(int row = 0; row < numRows; row++) {           
-            if(digitalRead(rowPins[row]) == LOW) {         
-                delay(debounceTime);                       
-                while(digitalRead(rowPins[row]) == LOW) ; 
-                key = keymap[row][column];                 
-            }
-        }
-        digitalWrite(colPins[column],HIGH);                
-    }
-    return key;                                            
+  }
 }
 
-
-
-
-
+char getKey() {
+  char key = 0;                                          
+  for(int column = 0; column < numCols; column++) {
+    digitalWrite(colPins[column],LOW);                 
+    for(int row = 0; row < numRows; row++) {           
+      if(digitalRead(rowPins[row]) == LOW) {         
+        delay(debounceTime);                       
+        while(digitalRead(rowPins[row]) == LOW) ; 
+        key = keymap[row][column];                 
+      }
+    }
+    digitalWrite(colPins[column],HIGH);                
+  }
+  return key;                                            
+}
