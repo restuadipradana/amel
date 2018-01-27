@@ -27,7 +27,7 @@ int ledkunci=5;
 
 int relayldr=6;
 int relaybuzzer=12;
-int relaysolenoid=13;
+int relaysolenoid=11;
 
 
 void allon(){ 
@@ -39,11 +39,6 @@ void setup(){
   Serial.begin(9600);
   lcd.begin(16, 2);
   
-  int ledverifikasi =13;
-  int ledbuka =12;
-  int ledkunci=11;
-  int solenoid=10;
-
   pinMode(ledverifikasi, OUTPUT);
   pinMode(ledbuka, OUTPUT);
   pinMode(ledkunci, OUTPUT);
