@@ -80,9 +80,9 @@ void loop(){
     
       switch (key) {
           case '#': 
-          checkPassword1(); 
-          checkPassword2(); 
-          checkPassword3();
+          checkPassword1(); //ledbuka on, selenoid buka, ledkunci off
+          checkPassword2(); //ledbuka on, selenoid buka, ledkunci off
+          checkPassword3(); //ledbuka off, selenoid tutup, ledkunci on
           delay(10);
           password1.reset(); 
           password2.reset(); 
@@ -159,9 +159,11 @@ void checkPassword1(){
     lcd.setCursor(0,1);
     lcd.print("      ANDA      ");
     delay(200); 
-    digitalWrite(ledbuka, HIGH);
-    digitalWrite(relaysolenoid, LOW);
+    digitalWrite(ledbuka, HIGH); 
     digitalWrite(ledkunci, LOW);
+    digitalWrite(relaysolenoid, LOW);
+    delay(5000);
+    digitalWrite(relaysolenoid, HIGH);
   }
 }
 
@@ -180,9 +182,11 @@ void checkPassword2(){
     lcd.setCursor(0,1);
     lcd.print("      ANDA      ");
     delay(200);
-    digitalWrite(ledbuka, HIGH);
-    digitalWrite(relaysolenoid, LOW);
+    digitalWrite(ledbuka, HIGH); 
     digitalWrite(ledkunci, LOW);
+    digitalWrite(relaysolenoid, LOW);
+    delay(5000);
+    digitalWrite(relaysolenoid, HIGH);
   } 
 }
 
@@ -201,7 +205,7 @@ void checkPassword3(){
     lcd.setCursor(0,1);
     lcd.print("      ANDA      ");
     delay(200);
-    digitalWrite(ledbuka, LOW);
+    digitalWrite(ledbuka, LOW); //belum di edit
     digitalWrite(relaysolenoid, HIGH);
     digitalWrite(ledkunci, HIGH);
   }
