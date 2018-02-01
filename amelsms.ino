@@ -167,8 +167,6 @@ void checkPassword1(){
     lcd.setCursor(0,1);
     lcd.print("      ANDA      ");
     delay(200); 
-    digitalWrite(ledbuka, HIGH); 
-    digitalWrite(ledkunci, LOW);
     Solenoid();
   }
 }
@@ -189,7 +187,6 @@ void checkPassword2(){
     lcd.print("      ANDA      ");
     delay(200);
     digitalWrite(ledbuka, HIGH); 
-    digitalWrite(ledkunci, LOW);
     Solenoid();
   } 
 }
@@ -230,9 +227,13 @@ void KirimSMS()
 
 void Solenoid()
 {
+  digitalWrite(ledbuka, HIGH); 
+  digitalWrite(ledkunci, LOW);
   digitalWrite(relaysolenoid, LOW);
   delay(5000);
   digitalWrite(relaysolenoid, HIGH);
+  digitalWrite(ledbuka, LOW); 
+  digitalWrite(ledkunci, HIGH);
 }
 
 char getKeys() {
