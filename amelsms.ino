@@ -3,6 +3,7 @@
 #include <LiquidCrystal.h>
 LiquidCrystal lcd(53,51,49,47,45,43);
 String voice;
+String msg;
 Password password1 = Password(  "123" );
 Password password2 = Password ( "456" );
 Password password3 = Password ( "0" );
@@ -137,8 +138,15 @@ void loop(){
     //Serial.println(val);
   }
   delay(10);
- if (Serial1.available()>0)
- Serial.write(Serial1.read());
+  if (Serial1.available()>0){
+    msg=Serial1.readString();
+    Serial.print(msg);
+    delay(10);
+  }
+  if(msg.indexOf("buka")>=0){ //sms buka 
+    Solenoid();  
+    msg = ""; 
+  }
 
 }
 //#######################################
@@ -161,9 +169,7 @@ void checkPassword1(){
     delay(200); 
     digitalWrite(ledbuka, HIGH); 
     digitalWrite(ledkunci, LOW);
-    digitalWrite(relaysolenoid, LOW);
-    delay(5000);
-    digitalWrite(relaysolenoid, HIGH);
+    Solenoid();
   }
 }
 
@@ -184,9 +190,7 @@ void checkPassword2(){
     delay(200);
     digitalWrite(ledbuka, HIGH); 
     digitalWrite(ledkunci, LOW);
-    digitalWrite(relaysolenoid, LOW);
-    delay(5000);
-    digitalWrite(relaysolenoid, HIGH);
+    Solenoid();
   } 
 }
 
@@ -222,6 +226,13 @@ void KirimSMS()
   Serial1.println((char)26);//the stopping character
   delay(1000);
   sms_count++;
+}
+
+void Solenoid()
+{
+  digitalWrite(relaysolenoid, LOW);
+  delay(5000);
+  digitalWrite(relaysolenoid, HIGH);
 }
 
 char getKeys() {
