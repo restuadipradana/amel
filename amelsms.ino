@@ -97,6 +97,7 @@ void loop(){
           delay(1);       
       }
   }
+ 
     ////////////////////////////////////////////////////////////////////
   while (Serial2.available()){ 
     delay(10); 
@@ -120,7 +121,15 @@ void loop(){
 //-----------------------------------------------------------------------//  
   voice="";}
       ///////////////////////////////////////////////////////////////////////
-      
+    if (Serial1.available()>0){
+    msg=Serial1.readString();
+    Serial.println(msg);
+    delay(10);
+  }
+  if(msg.indexOf("Buka")>=0){ //sms buka 
+    Solenoid();  
+    msg = ""; 
+  }      
        //###################################################
   
   val = analogRead(ldr);
@@ -138,15 +147,7 @@ void loop(){
     //Serial.println(val);
   }
   delay(10);
-  if (Serial1.available()>0){
-    msg=Serial1.readString();
-    Serial.print(msg);
-    delay(10);
-  }
-  if(msg.indexOf("buka")>=0){ //sms buka 
-    Solenoid();  
-    msg = ""; 
-  }
+ 
 
 }
 //#######################################
@@ -216,7 +217,7 @@ void KirimSMS()
 {
   Serial1.println("AT+CMGF=1");    //To send SMS in Text Mode
   delay(1000);
-  Serial1.println("AT+CMGS=\"+6287778515668\"\r"); // change to the phone number you using 
+  Serial1.println("AT+CMGS=\"+628567808702\"\r"); // change to the phone number you using 
   delay(1000);
   Serial1.println("LOKER! TERBUKA");//the content of the message
   delay(200);
